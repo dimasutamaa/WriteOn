@@ -24,4 +24,14 @@ class Post extends Model
     {
         $query->where('featured', true);
     }
+
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
+    public function getReadingTime()
+    {
+        $mins = round(str_word_count($this->body) / 250);
+        return ($mins < 1) ? 1 : $mins;
+    }
 }
