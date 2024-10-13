@@ -1,7 +1,7 @@
 @props(['post'])
 
 <article class="overflow-hidden bg-white border border-gray-100 rounded-lg shadow-sm">
-    <img src="{{ $post->image }}" class="object-cover w-full h-56" />
+    <img src="{{ $post->getThumbnailImage() }}" class="object-cover w-full h-56" />
 
     <div class="p-4 sm:p-6">
         <a href="#">
