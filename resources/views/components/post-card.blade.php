@@ -11,7 +11,7 @@
         </a>
 
         <div class="flex flex-col items-start mt-2 text-sm text-gray-500 lg:flex-row lg:items-center">
-            <p>By {{ $post->user->name }}</p>
+            <p>By {{ $post->author->name }}</p>
             <p class="hidden mx-2 lg:block">-</p>
             <p>{{\Carbon\Carbon::parse($post->published_at)->format('jS \\ F Y') }}</p>
         </div>
