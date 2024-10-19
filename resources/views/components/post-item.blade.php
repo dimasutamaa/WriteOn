@@ -19,11 +19,19 @@
             </h2>
 
             <p class="mt-2 text-base font-light text-gray-700">
-                {{ Str::limit($post->body, 150) }}
+                {!! Str::limit($post->body, 150) !!}
             </p>
             <div class="flex items-center justify-between mt-6 article-actions-bar">
-                <div class="flex items-center space-x-4">
-                    <span class="text-sm text-gray-500">{{ $post->getReadingTime() }} min read</span>
+                <div class="flex gap-x-2">
+                    @foreach ($post->categories as $category)
+                        <button wire:navigate href="{{ route('blog', ['category' => $category->slug]) }}">
+                            <x-badge md color="{{ $category->color == null ? 'primary' : $category->color }}"
+                                label="{{ $category->title }}" />
+                        </button>
+                    @endforeach
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">{{ $post->getReadingTime() }} min read</span>
+                    </div>
                 </div>
                 <div>
                     <a class="flex items-center">

@@ -5,6 +5,7 @@ use Livewire\Attributes\On;
 use Livewire\Volt\Component;
 use Livewire\WithPagination;
 use App\Models\Post;
+use App\Models\Category;
 
 new class extends Component {
     use WithPagination;
@@ -14,6 +15,9 @@ new class extends Component {
 
     #[Url]
     public $search = '';
+    
+    #[Url]
+    public $category = '';
 
     public function setSort($sort)
     {
@@ -31,6 +35,9 @@ new class extends Component {
         return [
             'posts' => Post::published()
                 ->orderBy('published_at', $this->sort)
+                ->when(Category::where('slug', $this->category)->first(), function ($query) {
+                    $query->withCategory($this->category);
+                })
                 ->where('title', 'like', "%{$this->search}%")
                 ->paginate(5),
         ];

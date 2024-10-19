@@ -33,6 +33,13 @@ class Post extends Model
         $query->where('featured', true);
     }
 
+    public function scopeWithCategory($query, $category)
+    {
+        $query->whereHas('categories', function ($query) use ($category) {
+            $query->where('slug', $category);
+        });
+    }
+
     protected $casts = [
         'published_at' => 'datetime',
     ];
